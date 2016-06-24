@@ -1,0 +1,20 @@
+{
+  "name": "batavia-restful",
+  "version": "0.0.1",
+  "description": "RESTful service for Batavia app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nadiar AS",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:codxse/batavia-restful.git"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.1.0"
+  }
+}
