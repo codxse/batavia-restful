@@ -29,7 +29,18 @@ ikhtisarRouter.route('/ikhtisar-statistiks')
     res.status(201).send(jsonData);
   })
   .get(function(req, res) {
-    Ikhtisar.find(function(err, jsonData) {
+    var query = req.query;
+    Ikhtisar.find(query, function(err, jsonData) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(jsonData);
+      }
+    });
+  });
+ikhtisarRouter.route('/ikhtisar-statistiks/:_id')
+  .get(function(req, res) {
+    Ikhtisar.findById(req.params._id, function(err, jsonData) {
       if (err) {
         res.status(500).send(err);
       } else {
