@@ -39,6 +39,37 @@ exports.selectById = function(req, res) {
   res.json(req.jsonData);
 };
 
+// sort Json Data by Key argumen [asc, desc]
+exports.sortJsonByKey = function(req, res) {
+  var query = Ikhtisar.find();
+  console.log(req.params._key);
+  console.log(req.params._arg);
+  if (req.params._arg === 'desc') {
+    query.sort({
+      tahun: 'desc'
+    }).exec(function(err, resultJsons) {
+      res.json(resultJsons);
+      console.log(req.params._key);
+      console.log(req.params._arg);
+    });
+  } else if (req.params._arg === 'asc') {
+    query.sort({
+      tahun: 'asc'
+    }).exec(function(err, resultJsons) {
+      res.json(resultJsons);
+      console.log(req.params._key);
+      console.log(req.params._arg);
+    });
+  } else {
+    res.status(404).send('Not Valid Input');
+    console.log('here 404');
+  }
+};
+
+exports.sort = function(req, res) {
+  console.log('@sort');
+};
+
 // mongodb query db.collection.findById(_id) .rom middleware
 // asign new json data (req.body) to old data
 // mongodb query db.collection.save()

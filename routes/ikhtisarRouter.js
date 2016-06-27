@@ -19,6 +19,10 @@ router.get('/ikhtisar-statistiks/:_id', function(req, res) {
   return ikhtisarCtrl.selectById(req, res);
 });
 
+router.get('/ikhtisar-statistiks?sortAsc', function(req, res) {
+  console.log('here at sort get');
+});
+
 router.put('/ikhtisar-statistiks/:_id', function(req, res) {
   return ikhtisarCtrl.updateAll(req, res);
 });
