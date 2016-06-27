@@ -1,7 +1,7 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var Ikhtisar = require('../models/ikhtisarModel');
-
+var express = require('express'),
+  Ikhtisar = require('../models/ikhtisarModel'),
+  bodyParser = require('body-parser');
+  
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 // mongodb query db.collection.save()
 exports.create = function(req, res) {
   var newJsonData = new Ikhtisar(req.body);
-  data.save();
+  newJsonData.save();
   res.status(201).send(newJsonData);
 };
 

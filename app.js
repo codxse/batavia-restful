@@ -4,8 +4,10 @@ var express = require('express'),
   dotenv = require('dotenv');
 
 // this is api pages
-var app = express();
 var port = process.env.PORT || 3000;
+var app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // connect to database
 const myEnv = dotenv.config();
@@ -19,7 +21,12 @@ var db = mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + '/' + 
 var ikhtisarRouter = require('./routes/ikhtisarRouter');
 app.use('/v1', ikhtisarRouter);
 
+// view
 app.get('/', function(req, res) {
+  res.redirect(301, '/v1');
+});
+
+app.get('/v1', function(req, res) {
   res.send('Batavia RESTful service');
 });
 
