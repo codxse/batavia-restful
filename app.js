@@ -3,13 +3,14 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   dotenv = require('dotenv');
 
-// this is api pages
 var port = process.env.PORT || 3000;
 var app = express();
+
+/* tell the browser this is api pages */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// connect to database
+/* connect to database */
 const myEnv = dotenv.config();
 var host = myEnv.DB_HOST,
   database = myEnv.DATABASE,
@@ -17,15 +18,14 @@ var host = myEnv.DB_HOST,
   pass = myEnv.DB_PASS;
 var db = mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + '/' + database);
 
-// router
+/* all router goes here */
 var ikhtisarRouter = require('./routes/ikhtisarRouter');
 app.use('/v1', ikhtisarRouter);
 
-// view
+/* view for documentation goes here */
 app.get('/', function(req, res) {
   res.redirect(301, '/v1');
 });
-
 app.get('/v1', function(req, res) {
   res.send('Batavia RESTful service');
 });
