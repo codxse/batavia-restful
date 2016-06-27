@@ -4,6 +4,10 @@ var router = express.Router();
 var ikhtisarCtrl = require('../controllers/ikhtisarCtrl');
 var Ikhtisar = require('../models/ikhtisarModel');
 
+router.use('/ikhtisar-statistiks/:_id', function(req, res, next) {
+  return ikhtisarCtrl.middleware(req, res, next);
+});
+
 router.post('/ikhtisar-statistiks', function(req, res) {
   return ikhtisarCtrl.create(req, res);
 });
