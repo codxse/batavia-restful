@@ -2,7 +2,6 @@ var express = require('express');
 
 var router = express.Router();
 var ikhtisarCtrl = require('../controllers/ikhtisarCtrl');
-var Ikhtisar = require('../models/ikhtisarModel');
 
 router.use('/ikhtisar-statistiks/:_id', function(req, res, next) {
   return ikhtisarCtrl.middleware(req, res, next);
@@ -26,6 +25,10 @@ router.put('/ikhtisar-statistiks/:_id', function(req, res) {
 
 router.patch('/ikhtisar-statistiks/:_id', function(req, res) {
   return ikhtisarCtrl.update(req, res);
+});
+
+router.delete('/ikhtisar-statistiks/:_id', function(req, res) {
+  return ikhtisarCtrl.delete(req, res);
 });
 
 module.exports = router;

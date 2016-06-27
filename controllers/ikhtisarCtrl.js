@@ -76,3 +76,13 @@ exports.update = function(req, res) {
     }
   });
 };
+
+exports.delete = function(req, res) {
+  req.jsonData.remove(function(err) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(204).send('Data removed');
+    }
+  })
+}
