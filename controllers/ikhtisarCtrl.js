@@ -70,8 +70,6 @@ exports.sorByKey = function(req, res) {
 // get max or min based on key
 exports.getMaxMin = function(req, res) {
   var query = Ikhtisar.findOne();
-  console.log(req.params._key);
-  console.log(req.params._arg);
   if (req.params._arg === 'max') {
     query.sort('-'+req.params._key)
       .exec(function(err, resultJson) {
@@ -93,6 +91,25 @@ exports.getMaxMin = function(req, res) {
     } else {
       res.status(404).send('Not Valid Input');
     }
+};
+
+// get date from :_ld to :_gd
+exports.getDateBetween = function(req, res) {
+  var query = Ikhtisar;
+  query.find({
+    [req.params._key]: {
+      $gt: [req.params._gd],
+      $lt: [req.params._ld]
+    }
+  }).sort({
+    [req.params._key]: 'asc'
+  }).exec(function(err, resultJsons) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(resultJsons);
+    }
+  });
 };
 
 // mongodb query db.collection.findById(_id) .rom middleware
@@ -141,4 +158,4 @@ exports.delete = function(req, res) {
       res.status(204).send('Data removed');
     }
   })
-}
+};

@@ -27,6 +27,10 @@ router.get('/ikhtisar-statistiks/key=:_key&get=:_arg', function(req, res) {
   return ikhtisarCtrl.getMaxMin(req, res);
 });
 
+router.get('/ikhtisar-statistiks/key=:_key&gd=:_gd&ld=:_ld', function(req, res) {
+  return ikhtisarCtrl.getDateBetween(req, res);
+});
+
 router.put('/ikhtisar-statistiks/id=:_id', function(req, res) {
   return ikhtisarCtrl.updateAll(req, res);
 });
