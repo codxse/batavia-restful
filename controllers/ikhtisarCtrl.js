@@ -42,23 +42,57 @@ exports.selectById = function(req, res) {
 // sort Json Data by Key argumen [asc, desc]
 exports.sorByKey = function(req, res) {
   var query = Ikhtisar.find();
-  console.log(req.params._key);
-  console.log(req.params._arg);
   if (req.params._arg === 'desc') {
     query.sort({
       [req.params._key]: 'desc'
     }).exec(function(err, resultJsons) {
-      res.json(resultJsons);
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJson);
+      }
     });
   } else if (req.params._arg === 'asc') {
     query.sort({
       [req.params._key]: 'asc'
     }).exec(function(err, resultJsons) {
-      res.json(resultJsons);
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJson);
+      }
     });
   } else {
     res.status(404).send('Not Valid Input');
   }
+};
+
+// get max or min based on key
+exports.getMaxMin = function(req, res) {
+  var query = Ikhtisar.findOne();
+  console.log(req.params._key);
+  console.log(req.params._arg);
+  if (req.params._arg === 'max') {
+    query.sort('-'+req.params._key)
+      .exec(function(err, resultJson) {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.json(resultJson);
+        }
+      });
+    } else if (req.params._arg === 'min') {
+      query.sort(req.params._key)
+        .exec(function(err, resultJson) {
+          if (err) {
+            res.status(500).send(err);
+          } else {
+            res.json(resultJson);
+          }
+        });
+    } else {
+      res.status(404).send('Not Valid Input');
+    }
 };
 
 // mongodb query db.collection.findById(_id) .rom middleware
