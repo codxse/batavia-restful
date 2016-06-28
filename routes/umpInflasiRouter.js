@@ -59,9 +59,22 @@ router.put(path + '/id=:_id', function(req, res) {
   return umpInflasiCtrl.updateAllDataFields(req, res);
 });
 
-/* update all field for choosen data */
+/* update linear model */
 router.patch('/ump-inflasi/id=:_id', function(req, res) {
   return umpInflasiCtrl.updateModelFields(req, res);
+});
+
+/* update data */
+router.patch(path + '/id=:_id', function(req, res) {
+  return umpInflasiCtrl.updateDataFields(req, res);
+});
+
+router.delete('/ump-inflasi/id=:_id', function(req, res) {
+  return umpInflasiCtrl.deleteModel(req, res);
+});
+
+router.delete(path + '/id=:_id', function(req, res) {
+  return umpInflasiCtrl.deleteData(req, res);
 });
 
 module.exports = router;

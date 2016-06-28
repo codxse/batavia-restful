@@ -18,13 +18,13 @@ exports.middlewareData = function(req, res, next) {
 };
 
 exports.createModel = function(req, res) {
-  var model = new Linear(req.body);
-  model.save(function(err) {
+  var newModel = new Model(req.body);
+  newModel.save(function(err) {
     if (err) {
       res.status(500).send(err);
       console.log(err);
     } else {
-      res.status(201).send(newLinearJsonData);
+      res.status(201).send(newModel);
     }
   });
 };
@@ -192,37 +192,46 @@ exports.updateModelFields = function(req, res) {
       }
 
       if (req.body.data) {
-
-        var isInArray = function (value, array) {
+        var isInArray = function(value, array) {
           return array.indexOf(value) > -1;
         };
 
-        var arrData = req.resultJson.data;
-
-        // check if data in ArrBody exist in Data collection AND not in arrData
-        // if exist:
-        //    leave
-        // dont?
-        //    push to arrData
-        //    save
-
-        var arrBody = req.body.data;
-        for (index in arrBody) {
-          Data.count({_id: arrBody[index]}, function(err, count) {
-            if (count > 0) {
-              if (!isInArray(arrBody[index], arrData)) {
-                arrData.push(arrBody[index]);
+        var isExist = function(uniqueId) {
+          return Data.count({_id: uniqueId}, function(err, count) {
+            if (err) {
+              console.log(err);
+              return false;
+            } else {
+              if (count > 0) {
+                return true;
+              } else {
+                return false;
               }
             }
           });
+        };
+
+        // if data in ArrBody doesnt exist arrData
+        //  and if data in ArrBody exist in collection Data
+        //    add data in ArrBody to arrData
+        // save!
+
+        var arrData = req.resultJson.data;
+        var arrBody = req.body.data;
+        /* BIG NOTE */
+        /* looping below doesnt work async
+        /* please make a change for saving async
+        /* if possibe dont use looping
+        /* by: Nadiar AS codxse@github
+        /* END NOTE */
+
+        for (index in arrBody) {
+          if (!isInArray(arrBody[index], arrData)) {
+            if (isExist(arrBody[index])) {
+              arrData.push(arrBody[index]);
+            }
+          }
         }
-
-        // /* Flatering two dimension array */
-        // arrData = arrData.reduce(function(prev, curr) {
-        //   return prev.concat(curr);
-        // });
-
-        req.resultJson.data = arrData;
       }
 
       req.resultJson.save(function(err) {
@@ -238,4 +247,48 @@ exports.updateModelFields = function(req, res) {
       res.status(404).send('404: data not found')
     }
   });
+};
+
+exports.updateDataFields = function(req, res) {
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  for (var key in req.body) {
+    req.jsonData[key] = req.body[key];
+  }
+  req.jsonData.save(function(err) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(req.jsonData);
+    }
+  });
+};
+
+exports.deleteModel = function(req, res) {
+  Model.findById(req.params._id, function(err, jsonData) {
+    if (err) {
+      res.status(500).send(err);
+    } else if (jsonData) {
+      req.jsonData.remove(function(err) {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(204).send('Model removed');
+        }
+      })
+    } else {
+      res.status(404).send('404: data not found');
+    }
+  });
+};
+
+exports.deleteData = function(req, res) {
+  req.jsonData.remove(function(err) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(204).send('Data removed');
+    }
+  })
 };
