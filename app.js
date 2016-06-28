@@ -21,6 +21,8 @@ var db = mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + '/' + 
 /* all router goes here */
 var ikhtisarRouter = require('./routes/ikhtisarRouter');
 app.use('/v1', ikhtisarRouter);
+var umpInflasiRouter = require('./routes/umpInflasiRouter');
+app.use('/v1', umpInflasiRouter);
 
 /* view for documentation goes here */
 app.get('/', function(req, res) {

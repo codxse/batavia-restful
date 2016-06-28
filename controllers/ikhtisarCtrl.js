@@ -1,4 +1,3 @@
-var express = require('express');
 var Ikhtisar = require('../models/ikhtisarModel');
 
 // middleware
@@ -10,7 +9,7 @@ exports.middleware = function(req, res, next) {
       req.jsonData = jsonData;
       next();
     } else {
-      res.status(404).send('no id found');
+      res.status(404).send('404: data not found');
     }
   });
 };
@@ -18,8 +17,13 @@ exports.middleware = function(req, res, next) {
 // mongodb query db.collection.save()
 exports.create = function(req, res) {
   var newJsonData = new Ikhtisar(req.body);
-  newJsonData.save();
-  res.status(201).send(newJsonData);
+  newJsonData.save(function(err) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(newJsonData);
+    }
+  });
 };
 
 // mongodb query db.collection.find()
@@ -49,7 +53,7 @@ exports.sorByKey = function(req, res) {
       if (err) {
         res.status(500).send(err);
       } else {
-        res.json(resultJson);
+        res.json(resultJsons);
       }
     });
   } else if (req.params._arg === 'asc') {
@@ -59,7 +63,7 @@ exports.sorByKey = function(req, res) {
       if (err) {
         res.status(500).send(err);
       } else {
-        res.json(resultJson);
+        res.json(resultJsons);
       }
     });
   } else {
@@ -89,7 +93,7 @@ exports.getMaxMin = function(req, res) {
           }
         });
     } else {
-      res.status(404).send('Not Valid Input');
+      res.status(404).send('Not Valid Input, input in [min, max]');
     }
 };
 
