@@ -178,7 +178,6 @@ exports.updateAllDataFields = function(req, res) {
 exports.updateModelFields = function(req, res) {
   Model.findById(req.params._id, function(err, resultJson) {
     if (err) {
-      console.log(err);
       res.status(500).send(err);
     } else if (resultJson) {
       req.resultJson = resultJson;
@@ -244,7 +243,7 @@ exports.updateModelFields = function(req, res) {
 
     // If model id not found
     } else {
-      res.status(404).send('404: data not found')
+      res.status(404).send('404: data not found');
     }
   });
 };
@@ -288,7 +287,29 @@ exports.deleteData = function(req, res) {
     if (err) {
       res.status(500).send(err);
     } else {
+      // pop data on model data array
+      // BIG NOTE
+      // Below are not async
+      // please make it async if possible
+      // Nadiar AS codxse@github
+      Model.findOne(function(err, resultJson) {
+        if (err) {
+          res.status(500).send(err);
+        }
+        if (resultJson) {
+          var arrData = resultJson.data;
+          var index = arrData.indexOf(req.params._id);
+          if (index > -1) {
+            arrData.splice(index, 1);
+          }
+          resultJson.save(function(err) {
+            if (err) {
+              res.status(500).send(err);
+            }
+          });
+        }
+      }).exec();
       res.status(204).send('Data removed');
     }
-  })
+  });
 };
