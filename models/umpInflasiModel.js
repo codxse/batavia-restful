@@ -13,7 +13,8 @@ var data = mongoose.model('DataUmpInflasi', dataModel);
 var linearModel = new Schema({
   model: {
     coefficient: Number,
-    slope: Number
+    slope: Number,
+    correlation_coefficient: Number
   },
   data: [{
     type: Schema.ObjectId,

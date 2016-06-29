@@ -22,7 +22,6 @@ exports.createModel = function(req, res) {
   newModel.save(function(err) {
     if (err) {
       res.status(500).send(err);
-      console.log(err);
     } else {
       res.status(201).send(newModel);
     }
@@ -34,17 +33,10 @@ exports.createData = function(req, res) {
   newData.save(function(err) {
     if (err) {
       res.status(500).send(err);
-      console.log(err);
     } else {
       res.status(201).send(newData);
     }
   });
-
-  // add _id to data on Model
-  /*
-   *
-   *
-   */
 };
 
 exports.selectModel = function(req, res) {
@@ -190,6 +182,10 @@ exports.updateModelFields = function(req, res) {
         req.resultJson.model.slope = req.body.slope;
       }
 
+      if (req.body.correlation_coefficient) {
+        req.resultJson.model.correlation_coefficient = req.body.correlation_coefficient;
+      }
+
       if (req.body.data) {
         var isInArray = function(value, array) {
           return array.indexOf(value) > -1;
@@ -198,7 +194,7 @@ exports.updateModelFields = function(req, res) {
         var isExist = function(uniqueId) {
           return Data.count({_id: uniqueId}, function(err, count) {
             if (err) {
-              console.log(err);
+              pertumbuhanEkonomiCtrl(err);
               return false;
             } else {
               if (count > 0) {
