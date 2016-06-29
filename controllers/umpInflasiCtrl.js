@@ -261,11 +261,12 @@ exports.updateDataFields = function(req, res) {
 };
 
 exports.deleteModel = function(req, res) {
-  Model.findById(req.params._id, function(err, jsonData) {
+  Model.findById(req.params._id, function(err, resultJson) {
+    req.resultJson = resultJson;
     if (err) {
       res.status(500).send(err);
-    } else if (jsonData) {
-      req.jsonData.remove(function(err) {
+    } else if (resultJson) {
+      req.resultJson.remove(function(err) {
         if (err) {
           res.status(500).send(err);
         } else {
