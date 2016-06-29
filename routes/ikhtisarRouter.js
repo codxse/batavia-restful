@@ -2,44 +2,55 @@ var express = require('express');
 
 var router = express.Router();
 var ikhtisarCtrl = require('../controllers/ikhtisarCtrl');
+var path = ['/ikhtisar-statistik'];
 
-router.use('/ikhtisar-statistiks/id=:_id', function(req, res, next) {
+/* middleware for select by id */
+router.use(path[0] + '/id=:_id', function(req, res, next) {
   return ikhtisarCtrl.middleware(req, res, next);
 });
 
-router.post('/ikhtisar-statistiks', function(req, res) {
+/* crete data */
+router.post(path[0], function(req, res) {
   return ikhtisarCtrl.create(req, res);
 });
 
-router.get('/ikhtisar-statistiks', function(req, res) {
+/* select data */
+router.get(path[0], function(req, res) {
   return ikhtisarCtrl.select(req, res);
 });
 
-router.get('/ikhtisar-statistiks/id=:_id', function(req, res) {
+/* select data by id */
+router.get(path[0] + '/id=:_id', function(req, res) {
   return ikhtisarCtrl.selectById(req, res);
 });
 
-router.get('/ikhtisar-statistiks&sortBy=:_key&order=:_arg', function(req, res) {
+/* sort data by key, arg ['asc', 'desc'] */
+router.get(path[0] + '&sortBy=:_key&order=:_arg', function(req, res) {
   return ikhtisarCtrl.sorByKey(req, res);
 });
 
-router.get('/ikhtisar-statistiks/key=:_key&get=:_arg', function(req, res) {
+/* get max or min from selected key */
+router.get(path[0] + '/key=:_key&get=:_arg', function(req, res) {
   return ikhtisarCtrl.getMaxMin(req, res);
 });
 
-router.get('/ikhtisar-statistiks/key=:_key&gd=:_gd&ld=:_ld', function(req, res) {
+/* get date range between grather than (gd) and last than (ld) */
+router.get(path[0] + '/key=:_key&gd=:_gd&ld=:_ld', function(req, res) {
   return ikhtisarCtrl.getDateBetween(req, res);
 });
 
-router.put('/ikhtisar-statistiks/id=:_id', function(req, res) {
+/* update all field from given data */
+router.put(path[0] + '/id=:_id', function(req, res) {
   return ikhtisarCtrl.updateAll(req, res);
 });
 
-router.patch('/ikhtisar-statistiks/id=:_id', function(req, res) {
+/* update selected field */
+router.patch(path[0] + '/id=:_id', function(req, res) {
   return ikhtisarCtrl.update(req, res);
 });
 
-router.delete('/ikhtisar-statistiks/id=:_id', function(req, res) {
+/* delete selected data by id */
+router.delete(path[0] + '/id=:_id', function(req, res) {
   return ikhtisarCtrl.delete(req, res);
 });
 
