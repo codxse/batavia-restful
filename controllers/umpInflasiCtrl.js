@@ -31,7 +31,7 @@ exports.createModel = function(req, res) {
 
 exports.createData = function(req, res) {
   var newData = new Data(req.body);
-  data.save(function(err) {
+  newData.save(function(err) {
     if (err) {
       res.status(500).send(err);
       console.log(err);
