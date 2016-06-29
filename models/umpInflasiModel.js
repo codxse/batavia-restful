@@ -3,9 +3,9 @@ var mongoose = require('mongoose'),
 
 var dataModel = new Schema({
   tahun: Date,
-  besar_ump: Number,
-  persen_kenaikan_ump: Number,
-  persen_inflasi: Number,
+  ump: Number,
+  kenaikan_ump: Number,
+  inflasi: Number,
   keterangan: String
 });
 var data = mongoose.model('DataUmpInflasi', dataModel);

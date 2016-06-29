@@ -4,7 +4,9 @@ var mongoose = require('mongoose'),
 var dataModel = new Schema({
   tahun: Date,
   persen_tumbuh_jakarta: Number,
-  persen_tumbuh_nasional: Number
+  persen_tumbuh_nasional: Number,
+  keterangan: String
+
 });
 var data = mongoose.model('DataPertumbuhanEkonomi', dataModel);
 

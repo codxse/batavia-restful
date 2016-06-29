@@ -174,16 +174,18 @@ exports.updateModelFields = function(req, res) {
     } else if (resultJson) {
       req.resultJson = resultJson;
 
-      if (req.body.model.coefficient) {
-        req.resultJson.model.coefficient = req.body.model.coefficient;
-      }
+      if (req.body.model != null) {
+        if (req.body.model.coefficient) {
+          req.resultJson.model.coefficient = req.body.model.coefficient;
+        }
 
-      if (req.body.model.slope) {
-        req.resultJson.model.slope = req.body.model.slope;
-      }
+        if (req.body.model.slope) {
+          req.resultJson.model.slope = req.body.model.slope;
+        }
 
-      if (req.body.model.correlation_coefficient) {
-        req.resultJson.model.correlation_coefficient = req.body.model.correlation_coefficient;
+        if (req.body.model.correlation_coefficient) {
+          req.resultJson.model.correlation_coefficient = req.body.model.correlation_coefficient;
+        }
       }
 
       if (req.body.data) {

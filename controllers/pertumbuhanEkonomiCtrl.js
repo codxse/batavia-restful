@@ -64,8 +64,7 @@ exports.selectModelById = function(req, res) {
 }
 
 exports.selectData = function(req, res) {
-  var query = req.query;
-  Data.find(query, function(err, resultJsons) {
+  Data.find(req.query, function(err, resultJsons) {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -155,6 +154,7 @@ exports.updateAllDataFields = function(req, res) {
     req.jsonData.tahun = req.body.tahun;
     req.jsonData.persen_tumbuh_jakarta = req.body.persen_tumbuh_jakarta;
     req.jsonData.persen_tumbuh_nasional = req.body.persen_tumbuh_nasional;
+    req.jsonData.keterangan = req.body.keterangan;
     req.jsonData.save(function(err) {
       if (err) {
         res.status(500).send(err);
@@ -172,16 +172,18 @@ exports.updateModelFields = function(req, res) {
     } else if (resultJson) {
       req.resultJson = resultJson;
 
-      if (req.body.model.coefficient) {
-        req.resultJson.model.coefficient = req.body.model.coefficient;
-      }
+      if (req.body.model != null) {
+        if (req.body.model.coefficient) {
+          req.resultJson.model.coefficient = req.body.model.coefficient;
+        }
 
-      if (req.body.model.slope) {
-        req.resultJson.model.slope = req.body.model.slope;
-      }
+        if (req.body.model.slope) {
+          req.resultJson.model.slope = req.body.model.slope;
+        }
 
-      if (req.body.model.correlation_coefficient) {
-        req.resultJson.model.correlation_coefficient = req.body.model.correlation_coefficient;
+        if (req.body.model.correlation_coefficient) {
+          req.resultJson.model.correlation_coefficient = req.body.model.correlation_coefficient;
+        }
       }
 
       if (req.body.data) {
@@ -219,7 +221,9 @@ exports.updateModelFields = function(req, res) {
         /* END NOTE */
 
         for (index in arrBody) {
+          // if not in arrData
           if (!isInArray(arrBody[index], arrData)) {
+            // if exist in collection
             if (isExist(arrBody[index])) {
               arrData.push(arrBody[index]);
             }
@@ -229,6 +233,7 @@ exports.updateModelFields = function(req, res) {
 
       req.resultJson.save(function(err) {
         if (err) {
+          console.log("ERRRROR");
           res.status(500).send(err);
         } else {
           res.json(req.resultJson);
