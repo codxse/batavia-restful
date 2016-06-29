@@ -23,6 +23,8 @@ var ikhtisarRouter = require('./routes/ikhtisarRouter');
 app.use('/v1', ikhtisarRouter);
 var umpInflasiRouter = require('./routes/umpInflasiRouter');
 app.use('/v1', umpInflasiRouter);
+var pertumbuhanEkonomiRouter = require('./routes/pertumbuhanEkonomiRouter');
+app.use('/v1',pertumbuhanEkonomiRouter);
 
 /* view for documentation goes here */
 app.get('/', function(req, res) {
