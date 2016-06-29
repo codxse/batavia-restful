@@ -30,13 +30,13 @@ exports.createModel = function(req, res) {
 };
 
 exports.createData = function(req, res) {
-  var data = new Data(req.body);
+  var newData = new Data(req.body);
   data.save(function(err) {
     if (err) {
       res.status(500).send(err);
       console.log(err);
     } else {
-      res.status(201).send(newUmpInflasiJsonData);
+      res.status(201).send(newData);
     }
   });
 
