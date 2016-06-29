@@ -1,7 +1,7 @@
 var express = require('express');
-var UmpInflasi = require('../models/umpInflasiModel');
-var Model = UmpInflasi.linear;
-var Data = UmpInflasi.data;
+var UmpInflasiSchema = require('../models/umpInflasiModel');
+var Model = UmpInflasiSchema.linear;
+var Data = UmpInflasiSchema.data;
 
 // middleware
 exports.middlewareData = function(req, res, next) {

@@ -1,12 +1,13 @@
-var Ikhtisar = require('../models/ikhtisarModel');
+var IkhtisarSchema = require('../models/ikhtisarModel');
+var Data = IkhtisarSchema.data;
 
 // middleware
 exports.middleware = function(req, res, next) {
-  Ikhtisar.findById(req.params._id, function(err, jsonData) {
+  Data.findById(req.params._id, function(err, resultJson) {
     if (err) {
       res.status(500).send(err);
-    } else if (jsonData) {
-      req.jsonData = jsonData;
+    } else if (resultJson) {
+      req.jsonData = resultJson;
       next();
     } else {
       res.status(404).send('404: data not found');
@@ -16,24 +17,23 @@ exports.middleware = function(req, res, next) {
 
 // mongodb query db.collection.save()
 exports.create = function(req, res) {
-  var newJsonData = new Ikhtisar(req.body);
-  newJsonData.save(function(err) {
+  var newData = new Data(req.body);
+  newData.save(function(err) {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.status(201).send(newJsonData);
+      res.status(201).send(newData);
     }
   });
 };
 
 // mongodb query db.collection.find()
 exports.select = function(req, res) {
-  var query = req.query;
-  Ikhtisar.find(query, function(err, jsonData) {
+  Data.find(req.query, function(err, resultJsons) {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.json(jsonData);
+      res.json(resultJsons);
     }
   });
 };
@@ -45,7 +45,7 @@ exports.selectById = function(req, res) {
 
 // sort Json Data by Key argumen [asc, desc]
 exports.sorByKey = function(req, res) {
-  var query = Ikhtisar.find();
+  var query = Data.find();
   if (req.params._arg === 'desc') {
     query.sort({
       [req.params._key]: 'desc'
@@ -73,7 +73,7 @@ exports.sorByKey = function(req, res) {
 
 // get max or min based on key
 exports.getMaxMin = function(req, res) {
-  var query = Ikhtisar.findOne();
+  var query = Data.findOne();
   if (req.params._arg === 'max') {
     query.sort('-'+req.params._key)
       .exec(function(err, resultJson) {
@@ -99,8 +99,7 @@ exports.getMaxMin = function(req, res) {
 
 // get date from :_ld to :_gd
 exports.getDateBetween = function(req, res) {
-  var query = Ikhtisar;
-  query.find({
+  Data.find({
     [req.params._key]: {
       $gt: [req.params._gd],
       $lt: [req.params._ld]
