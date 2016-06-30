@@ -20,7 +20,8 @@ var inflasiRouter = require('./routes/inflasiRouter');
 var pendapatanPerkapitaRouter = require('./routes/pendapatanPerkapitaRouter');
 var strukturEkonomiRouter = require('./routes/strukturEkonomiRouter');
 var komponenInflasiRouter = require('./routes/komponenInflasiRouter');
-var VolumeNilaiEksporRouter = require('./routes/VolumeNilaiEksporRouter');
+var volumeNilaiEksporRouter = require('./routes/volumeNilaiEksporRouter');
+var besarEkprImprRouter = require('./routes/besarEkprImprRouter');
 
 app.use(vAPI[0], ikhtisarRouter);
 app.use(vAPI[0], umpInflasiRouter);
@@ -29,7 +30,8 @@ app.use(vAPI[0], inflasiRouter);
 app.use(vAPI[0], pendapatanPerkapitaRouter);
 app.use(vAPI[0], strukturEkonomiRouter);
 app.use(vAPI[0], komponenInflasiRouter);
-app.use(vAPI[0], VolumeNilaiEksporRouter);
+app.use(vAPI[0], volumeNilaiEksporRouter);
+app.use(vAPI[0], besarEkprImprRouter);
 
 /* view for documentation goes here */
 app.get('/', function(req, res) {
