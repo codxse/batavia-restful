@@ -1,22 +1,16 @@
-var express = require('express'),
-  mongoose = require('mongoose'),
-  bodyParser = require('body-parser'),
-  dotenv = require('dotenv');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-var port = process.env.PORT || 3000;
-var app = express();
+/* configuration goes here */
+var config = require('./config');
+var port = config.port;
+var db = config.database;
+var vAPI = config.versions[0];
 
 /* tell the browser this is api pages */
+var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-/* connect to database */
-const myEnv = dotenv.config();
-var host = myEnv.DB_HOST,
-  database = myEnv.DATABASE,
-  user = myEnv.DB_USER,
-  pass = myEnv.DB_PASS;
-var db = mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + '/' + database);
 
 /* all router goes here */
 var ikhtisarRouter = require('./routes/ikhtisarRouter');
@@ -26,18 +20,19 @@ var inflasiRouter = require('./routes/inflasiRouter');
 var pendapatanPerkapitaRouter = require('./routes/pendapatanPerkapitaRouter');
 var strukturEkonomiRouter = require('./routes/strukturEkonomiRouter');
 
-app.use('/v1', ikhtisarRouter);
-app.use('/v1', umpInflasiRouter);
-app.use('/v1', pertumbuhanEkonomiRouter);
-app.use('/v1', inflasiRouter);
-app.use('/v1', pendapatanPerkapitaRouter);
-app.use('/v1', strukturEkonomiRouter);
+app.use(vAPI, ikhtisarRouter);
+app.use(vAPI, umpInflasiRouter);
+app.use(vAPI, pertumbuhanEkonomiRouter);
+app.use(vAPI, inflasiRouter);
+app.use(vAPI, pendapatanPerkapitaRouter);
+app.use(vAPI, strukturEkonomiRouter);
 
 /* view for documentation goes here */
 app.get('/', function(req, res) {
-  res.redirect(301, '/v1');
+  res.redirect(301, vAPI);
 });
-app.get('/v1', function(req, res) {
+
+app.get(vAPI, function(req, res) {
   res.send('Batavia RESTful service');
 });
 
