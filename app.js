@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 var port = config.port;
 var db = config.database;
-var vAPI = config.versions[0];
+var vAPI = config.versions;
 
 /* tell the browser this is api pages */
 var app = express();
@@ -19,13 +19,15 @@ var pertumbuhanEkonomiRouter = require('./routes/pertumbuhanEkonomiRouter');
 var inflasiRouter = require('./routes/inflasiRouter');
 var pendapatanPerkapitaRouter = require('./routes/pendapatanPerkapitaRouter');
 var strukturEkonomiRouter = require('./routes/strukturEkonomiRouter');
+var komponenInflasiRouter = require('./routes/komponenInflasiRouter');
 
-app.use(vAPI, ikhtisarRouter);
-app.use(vAPI, umpInflasiRouter);
-app.use(vAPI, pertumbuhanEkonomiRouter);
-app.use(vAPI, inflasiRouter);
-app.use(vAPI, pendapatanPerkapitaRouter);
-app.use(vAPI, strukturEkonomiRouter);
+app.use(vAPI[0], ikhtisarRouter);
+app.use(vAPI[0], umpInflasiRouter);
+app.use(vAPI[0], pertumbuhanEkonomiRouter);
+app.use(vAPI[0], inflasiRouter);
+app.use(vAPI[0], pendapatanPerkapitaRouter);
+app.use(vAPI[0], strukturEkonomiRouter);
+app.use(vAPI[0], komponenInflasiRouter);
 
 /* view for documentation goes here */
 app.get('/', function(req, res) {

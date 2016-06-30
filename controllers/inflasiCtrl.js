@@ -1,4 +1,3 @@
-var express = require('express');
 var InflasiSchema = require('../models/inflasiModel');
 var Model = InflasiSchema.linear;
 var Data = InflasiSchema.data;
