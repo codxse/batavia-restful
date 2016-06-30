@@ -20,15 +20,18 @@ var db = mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + '/' + 
 
 /* all router goes here */
 var ikhtisarRouter = require('./routes/ikhtisarRouter');
-app.use('/v1', ikhtisarRouter);
 var umpInflasiRouter = require('./routes/umpInflasiRouter');
-app.use('/v1', umpInflasiRouter);
 var pertumbuhanEkonomiRouter = require('./routes/pertumbuhanEkonomiRouter');
-app.use('/v1', pertumbuhanEkonomiRouter);
 var inflasiRouter = require('./routes/inflasiRouter');
-app.use('/v1', inflasiRouter);
 var pendapatanPerkapitaRouter = require('./routes/pendapatanPerkapitaRouter');
+var strukturEkonomiRouter = require('./routes/strukturEkonomiRouter');
+
+app.use('/v1', ikhtisarRouter);
+app.use('/v1', umpInflasiRouter);
+app.use('/v1', pertumbuhanEkonomiRouter);
+app.use('/v1', inflasiRouter);
 app.use('/v1', pendapatanPerkapitaRouter);
+app.use('/v1', strukturEkonomiRouter);
 
 /* view for documentation goes here */
 app.get('/', function(req, res) {
