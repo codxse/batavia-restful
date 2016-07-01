@@ -1,7 +1,8 @@
 var express = require('express');
-
-var router = express.Router();
 var pertumbuhanEkonomiCtrl = require('../controllers/pertumbuhanEkonomiCtrl');
+var auth = require('../tokens/index').auth;
+var passport = require('passport');
+var router = express.Router();
 var path = ['/pertumbuhan-ekonomi', '/data'];
 
 /* middleware for select pertumbuhan ekonomi data by id */
@@ -10,14 +11,20 @@ router.use(path[0] + path[1] + '/id=:_id', function(req, res, next) {
 });
 
 /* create linear data */
-router.post(path[0], function(req, res) {
-  return pertumbuhanEkonomiCtrl.createModel(req, res);
-});
+router.post(path[0],
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return pertumbuhanEkonomiCtrl.createModel(req, res);
+  }
+);
 
 /* create pertumbuhan ekonomi data */
-router.post(path[0] + path[1], function(req, res) {
-  return pertumbuhanEkonomiCtrl.createData(req, res);
-});
+router.post(path[0] + path[1],
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return pertumbuhanEkonomiCtrl.createData(req, res);
+  }
+);
 
 /* select linear model */
 router.get(path[0], function(req, res) {
@@ -60,23 +67,35 @@ router.put(path[0] + path[1] + '/id=:_id', function(req, res) {
 });
 
 /* update linear model */
-router.patch(path[0] + '/id=:_id', function(req, res) {
-  return pertumbuhanEkonomiCtrl.updateModelFields(req, res);
-});
+router.patch(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return pertumbuhanEkonomiCtrl.updateModelFields(req, res);
+  }
+);
 
 /* update data */
-router.patch(path[0] + path[1] + '/id=:_id', function(req, res) {
-  return pertumbuhanEkonomiCtrl.updateDataFields(req, res);
-});
+router.patch(path[0] + path[1] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return pertumbuhanEkonomiCtrl.updateDataFields(req, res);
+  }
+);
 
 /* delete model */
-router.delete(path[0] + '/id=:_id', function(req, res) {
-  return pertumbuhanEkonomiCtrl.deleteModel(req, res);
-});
+router.delete(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return pertumbuhanEkonomiCtrl.deleteModel(req, res);
+  }
+);
 
 /* delete data */
-router.delete(path[0] + path[1] + '/id=:_id', function(req, res) {
-  return pertumbuhanEkonomiCtrl.deleteData(req, res);
-});
+router.delete(path[0] + path[1] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return pertumbuhanEkonomiCtrl.deleteData(req, res);
+  }
+);
 
 module.exports = router;

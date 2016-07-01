@@ -1,6 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var hargaPanganKonsumenCtrl = require('../controllers/hargaPanganKonsumenCtrl');
+var auth = require('../tokens/index').auth;
+var passport = require('passport');
+var router = express.Router();
 var path = ['/harga-pangan-tingkat-konsumen','/histogram'];
 
 /* middleware for select by id */
@@ -9,9 +11,12 @@ router.use(path[0] + '/id=:_id', function(req, res, next) {
 });
 
 /* crete data */
-router.post(path[0], function(req, res) {
-  return hargaPanganKonsumenCtrl.create(req, res);
-});
+router.post(path[0],
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.create(req, res);
+  }
+);
 
 /* select data */
 router.get(path[0], function(req, res) {
@@ -43,19 +48,28 @@ router.get(path[0] + '/key=:_key&gd=:_gd&ld=:_ld', function(req, res) {
 });
 
 /* update all field from given data */
-router.put(path[0] + '/id=:_id', function(req, res) {
-  return hargaPanganKonsumenCtrl.updateAll(req, res);
-});
+router.put(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.updateAll(req, res);
+  }
+);
 
 /* update selected field */
-router.patch(path[0] + '/id=:_id', function(req, res) {
-  return hargaPanganKonsumenCtrl.update(req, res);
-});
+router.patch(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.update(req, res);
+  }
+);
 
 /* delete selected data by id */
-router.delete(path[0] + '/id=:_id', function(req, res) {
-  return hargaPanganKonsumenCtrl.delete(req, res);
-});
+router.delete(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.delete(req, res);
+  }
+);
 
 /* HISTOGRAM ROUTERS */
 
@@ -65,9 +79,12 @@ router.use(path[0] + path[1] + '/id=:_id', function(req, res, next) {
 });
 
 /* crete data */
-router.post(path[0] + path[1], function(req, res) {
-  return hargaPanganKonsumenCtrl.createHist(req, res);
-});
+router.post(path[0] + path[1],
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.createHist(req, res);
+  }
+);
 
 /* select data */
 router.get(path[0] + path[1], function(req, res) {
@@ -90,18 +107,27 @@ router.get(path[0] + path[1] + '/key=:_key&get=:_arg', function(req, res) {
 });
 
 /* update all field from given data */
-router.put(path[0] + path[1] + '/id=:_id', function(req, res) {
-  return hargaPanganKonsumenCtrl.updateHistAll(req, res);
-});
+router.put(path[0] + path[1] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.updateHistAll(req, res);
+  }
+);
 
 /* update selected field */
-router.patch(path[0] + path[1] + '/id=:_id', function(req, res) {
-  return hargaPanganKonsumenCtrl.updateHist(req, res);
-});
+router.patch(path[0] + path[1] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.updateHist(req, res);
+  }
+);
 
 /* delete selected data by id */
-router.delete(path[0] + path[1] + '/id=:_id', function(req, res) {
-  return hargaPanganKonsumenCtrl.deleteHist(req, res);
-});
+router.delete(path[0] + path[1] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return hargaPanganKonsumenCtrl.deleteHist(req, res);
+  }
+);
 
 module.exports = router;
