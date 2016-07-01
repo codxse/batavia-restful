@@ -1,6 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var komponenInflasiCtrl = require('../controllers/komponenInflasiCtrl');
+var auth = require('../tokens/index').auth;
+var passport = require('passport');
+var router = express.Router();
 var path = ['/komponen-inflasi'];
 
 /* middleware for select by id */
@@ -9,9 +11,12 @@ router.use(path[0] + '/id=:_id', function(req, res, next) {
 });
 
 /* crete data */
-router.post(path[0], function(req, res) {
-  return komponenInflasiCtrl.create(req, res);
-});
+router.post(path[0],
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return komponenInflasiCtrl.create(req, res);
+  }
+);
 
 /* select data */
 router.get(path[0], function(req, res) {
@@ -39,18 +44,27 @@ router.get(path[0] + '/key=:_key&gd=:_gd&ld=:_ld', function(req, res) {
 });
 
 /* update all field from given data */
-router.put(path[0] + '/id=:_id', function(req, res) {
-  return komponenInflasiCtrl.updateAll(req, res);
-});
+router.put(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return komponenInflasiCtrl.updateAll(req, res);
+  }
+);
 
 /* update selected field */
-router.patch(path[0] + '/id=:_id', function(req, res) {
-  return komponenInflasiCtrl.update(req, res);
-});
+router.patch(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return komponenInflasiCtrl.update(req, res);
+  }
+);
 
 /* delete selected data by id */
-router.delete(path[0] + '/id=:_id', function(req, res) {
-  return komponenInflasiCtrl.delete(req, res);
-});
+router.delete(path[0] + '/id=:_id',
+  passport.authenticate('bearer', { session: false }),
+  function(req, res) {
+    return komponenInflasiCtrl.delete(req, res);
+  }
+);
 
 module.exports = router;
