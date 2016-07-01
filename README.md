@@ -1,2 +1,3 @@
 # batavia-restful
-RESTful service 4 Batavia app
+
+RESTful service for batavia visualization app. MIT License.
