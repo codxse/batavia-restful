@@ -28,9 +28,9 @@ router.get(path[0] + '&sortBy=:_key&order=:_arg', function(req, res) {
   return hargaPanganKonsumenCtrl.sortByKey(req, res);
 });
 
-// router.get(path[0] + '&query=:_query&sortBy=:_key', function(req, res) {
-//   return hargaPanganKonsumenCtrl.sortQueryByKey(req, res);
-// });
+router.get(path[0] + '&:_key=:_value&sortBy=:_key2&order=:_arg', function(req, res) {
+  return hargaPanganKonsumenCtrl.sortQueryByKey(req, res);
+});
 
 /* get max or min from selected key */
 router.get(path[0] + '/key=:_key&get=:_arg', function(req, res) {

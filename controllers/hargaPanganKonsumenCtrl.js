@@ -72,17 +72,34 @@ exports.sortByKey = function(req, res) {
   }
 };
 
-// exports.sortQueryByKey = function(req, res) {
-//   var query = Data.find();
-//   query.sort({
-//     [req.params._query]:
-//   })
-//
-//   ).exec();
-//   Group
-//   .find({})
-//   .populate({path: 'Members', options: { sort: { 'created_at': -1 } } })
-// }
+exports.sortQueryByKey = function(req, res) {
+  var query = Data.find({
+    [req.params._key]: [req.params._value]
+  });
+  if (req.params._arg === 'desc') {
+    query.sort({
+      [req.params._key2]: 'desc'
+    }).exec(function(err, resultJsons) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJsons);
+      }
+    });
+  } else if (req.params._arg === 'asc') {
+    query.sort({
+      [req.params._key2]: 'asc'
+    }).exec(function(err, resultJsons) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJsons);
+      }
+    });
+  } else {
+    res.status(404).send('Not Valid Input');
+  }
+}
 
 // get max or min based on key
 exports.getMaxMin = function(req, res) {
