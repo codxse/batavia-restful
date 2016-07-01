@@ -23,6 +23,7 @@ var komponenInflasiRouter = require('./routes/komponenInflasiRouter');
 var volumeNilaiEksporRouter = require('./routes/volumeNilaiEksporRouter');
 var besarEkprImprRouter = require('./routes/besarEkprImprRouter');
 var nilaiImprProdukGolRouter = require('./routes/nilaiImprProdukGolRouter');
+var hargaPanganKonsumenRouter = require('./routes/hargaPanganKonsumenRouter');
 
 app.use(vAPI[0], ikhtisarRouter);
 app.use(vAPI[0], umpInflasiRouter);
@@ -34,6 +35,7 @@ app.use(vAPI[0], komponenInflasiRouter);
 app.use(vAPI[0], volumeNilaiEksporRouter);
 app.use(vAPI[0], besarEkprImprRouter);
 app.use(vAPI[0], nilaiImprProdukGolRouter);
+app.use(vAPI[0], hargaPanganKonsumenRouter);
 
 /* view for documentation goes here */
 app.get('/', function(req, res) {
