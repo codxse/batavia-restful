@@ -1,4 +1,4 @@
-var VolumeNilaiEksporSchema = require('../models/VolumeNilaiEksporModel');
+var VolumeNilaiEksporSchema = require('../models/volumeNilaiEksporModel');
 var Data = VolumeNilaiEksporSchema.data;
 
 // middleware

@@ -1,5 +1,5 @@
 var express = require('express');
-var volumeNilaiEksporCtrl = require('../controllers/VolumeNilaiEksporCtrl');
+var volumeNilaiEksporCtrl = require('../controllers/volumeNilaiEksporCtrl');
 var auth = require('../tokens/index').auth;
 var passport = require('passport');
 var router = express.Router();
