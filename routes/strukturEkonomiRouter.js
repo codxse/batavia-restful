@@ -1,5 +1,5 @@
 var express = require('express');
-var strukturEkonomiCtrl = require('../controllers/StrukturEkonomiCtrl');
+var strukturEkonomiCtrl = require('../controllers/strukturEkonomiCtrl');
 var auth = require('../tokens/index').auth;
 var passport = require('passport');
 var router = express.Router();
