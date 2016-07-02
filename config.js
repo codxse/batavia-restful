@@ -1,7 +1,7 @@
 var dotenv = require('dotenv');
 var mongoose = require('mongoose');
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8000;
 
 const environment = dotenv.config();
 var host = environment.DB_HOST,
