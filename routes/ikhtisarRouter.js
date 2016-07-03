@@ -3,7 +3,7 @@ var ikhtisarCtrl = require('../controllers/ikhtisarCtrl');
 var auth = require('../tokens/index').auth;
 var passport = require('passport');
 var router = express.Router();
-var path = ['/ikhtisar-statistik'];
+var path = ['/ikhtisar-statistik-antar-kerja'];
 
 /* middleware for select by id */
 router.use(path[0] + '/id=:_id', function(req, res, next) {
