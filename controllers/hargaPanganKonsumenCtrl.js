@@ -72,6 +72,33 @@ exports.sortByKey = function(req, res) {
   }
 };
 
+exports.limitSorByKey = function(req, res) {
+  var query = Data.find();
+  if (req.params._arg === 'desc') {
+    query.sort({
+      [req.params._key]: 'desc'
+    }).limit(req.params._count).exec(function(err, resultJsons) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJsons);
+      }
+    });
+  } else if (req.params._arg === 'asc') {
+    query.sort({
+      [req.params._key]: 'asc'
+    }).limit(req.params._count).exec(function(err, resultJsons) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJsons);
+      }
+    });
+  } else {
+    res.status(404).send('Not Valid Input');
+  }
+};
+
 exports.sortQueryByKey = function(req, res) {
   var query = Data.find({
     [req.params._key]: [req.params._value]

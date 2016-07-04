@@ -51,6 +51,11 @@ router.get(path[0] + path[1] + '&sortBy=:_key&order=:_arg', function(req, res) {
   return pertumbuhanEkonomiCtrl.sortDataByKey(req, res);
 });
 
+/* limit and sort data by key, arg ['asc', 'desc'] */
+router.get(path[0] + path[1] + '/limit=:_count&sortBy=:_key&order=:_arg', function(req, res) {
+  return pertumbuhanEkonomiCtrl.limitSorByKey(req, res);
+});
+
 /* select max min based on key */
 router.get(path[0] + path[1] + '&key=:_key&get=:_arg', function(req, res) {
   return pertumbuhanEkonomiCtrl.getMaxMinData(req, res);

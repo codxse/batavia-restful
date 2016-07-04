@@ -33,8 +33,14 @@ router.get(path[0] + '&sortBy=:_key&order=:_arg', function(req, res) {
   return hargaPanganKonsumenCtrl.sortByKey(req, res);
 });
 
+/* Filter by key, then sort desc or asc*/
 router.get(path[0] + '&:_key=:_value&sortBy=:_key2&order=:_arg', function(req, res) {
   return hargaPanganKonsumenCtrl.sortQueryByKey(req, res);
+});
+
+/* limit and sort data by key, arg ['asc', 'desc'] */
+router.get(path[0] + '/limit=:_count&sortBy=:_key&order=:_arg', function(req, res) {
+  return hargaPanganKonsumenCtrl.limitSorByKey(req, res);
 });
 
 /* get max or min from selected key */

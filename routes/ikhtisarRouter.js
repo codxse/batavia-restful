@@ -33,6 +33,11 @@ router.get(path[0] + '&sortBy=:_key&order=:_arg', function(req, res) {
   return ikhtisarCtrl.sorByKey(req, res);
 });
 
+/* limit and sort data by key, arg ['asc', 'desc'] */
+router.get(path[0] + '/limit=:_count&sortBy=:_key&order=:_arg', function(req, res) {
+  return ikhtisarCtrl.limitSorByKey(req, res);
+});
+
 /* get max or min from selected key */
 router.get(path[0] + '/key=:_key&get=:_arg', function(req, res) {
   return ikhtisarCtrl.getMaxMin(req, res);

@@ -105,6 +105,33 @@ exports.sortDataByKey = function(req, res) {
   }
 };
 
+exports.limitSorByKey = function(req, res) {
+  var query = Data.find();
+  if (req.params._arg === 'desc') {
+    query.sort({
+      [req.params._key]: 'desc'
+    }).limit(req.params._count).exec(function(err, resultJsons) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJsons);
+      }
+    });
+  } else if (req.params._arg === 'asc') {
+    query.sort({
+      [req.params._key]: 'asc'
+    }).limit(req.params._count).exec(function(err, resultJsons) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(resultJsons);
+      }
+    });
+  } else {
+    res.status(404).send('Not Valid Input');
+  }
+};
+
 // get max or min based on key
 exports.getMaxMinData = function(req, res) {
   var query = Data.findOne();
