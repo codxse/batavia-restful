@@ -20,9 +20,11 @@ exports.create = function(req, res) {
   var newData = new Data(req.body);
   newData.save(function(err) {
     if (err) {
-      res.status(500).send(err);
+      res.status(500);
+      res.send(err);
     } else {
-      res.status(201).send(newData);
+      res.status(201);
+      res.send(newData);
     }
   });
 };

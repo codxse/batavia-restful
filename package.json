@@ -4,7 +4,8 @@
   "description": "RESTful service for Batavia app",
   "main": "app.js",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "test": "gulp test"
   },
   "author": "Nadiar AS",
   "license": "MIT",

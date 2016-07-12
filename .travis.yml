@@ -1,0 +1,9 @@
+language: noe_js
+node_js:
+  - "6"
+branches:
+  only:
+    - master
+before_script:
+  - npm install -g express
+  - npm install -g gulp
