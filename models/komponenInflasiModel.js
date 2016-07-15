@@ -9,6 +9,14 @@ var dataModel = new Schema({
 });
 var data = mongoose.model('KomponenInflasi', dataModel);
 
+var dataModel2 = new Schema({
+  tanggal: Date,
+  komponen: String,
+  inflasi: Number
+});
+var data2 = mongoose.model('KomponenInflasiGeneric', dataModel2);
+
 module.exports = {
-  data: data
+  data: data,
+  data2: data2
 }
