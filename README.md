@@ -4,4 +4,4 @@
 RESTful service for batavia visualization app.
 
 ## LICENSE
-MIT
+MIT (2016)
